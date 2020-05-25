@@ -28,11 +28,9 @@ public:
                              PPMpicture& picture,
                              PPMpicture& picture_out) override;
 
-    //il faut des metadonnees sur l'image pour l'ecrire sur disque, on peut pas deviner la largeur/hauteur
     //ce truc doit etre dans une classe dedié au stockage, hors de PPMProcessor
     virtual void savePicture(QString& filename,
                              PPMpicture& picture) override;
-
 
 
 private:
@@ -65,8 +63,8 @@ void PPMProcessor::loadPPM(QString& filename,
 void PPMProcessor::applyFilter(IPPMFilter &filter, PPMpicture &picture, PPMpicture &picture_out)
 {
     filter.apply(picture,picture_out);
-    picture_out.width = 512;
-    picture_out.length = 512;
+    picture_out.width = picture.width;
+    picture_out.length = picture.length;
 }
 
 void PPMProcessor::savePicture(QString &filename, PPMpicture &picture)

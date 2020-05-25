@@ -111,9 +111,10 @@ private:
                              Filtre_j[8] * picture_in[ (pixel_index_i + 1) * nb_colonnes + pixel_index_j + 1].B;
 
         }
-        pixel_result.R = sqrt(tmp_pixel_x[0] * tmp_pixel_x[0] + tmp_pixel_y[0] * tmp_pixel_y[0]);
-        pixel_result.G = sqrt(tmp_pixel_x[1] * tmp_pixel_x[0] + tmp_pixel_y[1] * tmp_pixel_y[1]);
-        pixel_result.B = sqrt(tmp_pixel_x[2] * tmp_pixel_x[0] + tmp_pixel_y[2] * tmp_pixel_y[2]);
+        //needed in order to have pixel value less or equal to 255
+        pixel_result.R = static_cast<quint32>(sqrt(tmp_pixel_x[0] * tmp_pixel_x[0] + tmp_pixel_y[0] * tmp_pixel_y[0]) )%256;
+        pixel_result.G = static_cast<quint32>(sqrt(tmp_pixel_x[1] * tmp_pixel_x[0] + tmp_pixel_y[1] * tmp_pixel_y[1]) )%256;
+        pixel_result.B = static_cast<quint32>(sqrt(tmp_pixel_x[2] * tmp_pixel_x[0] + tmp_pixel_y[2] * tmp_pixel_y[2]) )%256;
         return pixel_result;
     }
 

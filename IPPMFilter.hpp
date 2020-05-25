@@ -18,7 +18,7 @@ public:
     virtual ~IPPMFilter(){};
 
     virtual void apply(PPMpicture& picture_in,
-                       PPMpicture& picture_out) = 0;
+                       PPMpicture& picture_out) = 0; //Il faudrait que PPMpicture soit un type template pour eviter ce applyDFT
 
 protected:
     IPPMFilter() {};
