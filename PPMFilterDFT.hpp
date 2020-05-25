@@ -13,22 +13,9 @@
 #include <QFile>
 #include <QtDebug>
 
-struct pixel_complexe
-{
-    std::complex<double> R; //Red
-    std::complex<double> G; //Green
-    std::complex<double> B; //Blue
-};
-
-
-struct PPMpictureDFT
-{
-    QString PPMformat; // P3 -> ASCII PPM
-    quint32 length;
-    quint32 width;
-    QVector<pixel_complexe> picture;
-};
-
+//N'HERITE PAS DE IPPMfilter volontairement
+//c'est une classe standalone, sinon on allait casser toute l'archi du code
+//Le probleme etant que le ressultat de la DFT donne des complexes
 
 class PPMFilterDFT
 {
@@ -38,6 +25,9 @@ public:
 
     void applyDFT(PPMpicture& picture_in,
                   PPMpictureDFT& picture_out);
+
+    void save(PPMpictureDFT& picture,
+              QString& filename); //à implementer
 
 private:
     //compute the DFT with naive algorithme
