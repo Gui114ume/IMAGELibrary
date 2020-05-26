@@ -39,7 +39,20 @@ struct PPMpictureDFT
     QVector<pixel_complexe> picture;
 };
 
+struct PGMpicture
+{
+    QString PGMformat;
+    quint32 length;
+    quint32 width;
+    QVector<quint32> picture;
+};
 
-
+struct PGMpictureDFT
+{
+    QString PGMformat;
+    quint32 length;
+    quint32 width;
+    QVector<std::complex<double>> picture;
+};
 
 #endif

@@ -22,11 +22,9 @@ public:
 
 
     void apply(PPMpicture& picture_in,
-               QVector<quint32>& vector_out);
+               PGMpicture& picture_out);
 
-    void save(QVector<quint32>& vector_gray_img,
-              quint32& width,
-              quint32& length,
+    void save(PGMpicture& picture,
               QString& filename);
 
 private:
@@ -35,19 +33,19 @@ private:
 };
 
 
-void GrayscaleConverter::apply(PPMpicture &picture_in,
-                               QVector<quint32> &vector_out) //il faut rmeplacer le type par PGMpicture
+void GrayscaleConverter::apply(PPMpicture& picture_in,
+                               PGMpicture& picture_out) //il faut rmeplacer le type par PGMpicture
 {
+   picture_out.width = picture_in.width;
+   picture_out.length = picture_in.length;
    for(auto& i : picture_in.picture)
    {
-        vector_out.push_back(this->computeNewPixel(i));
+        picture_out.picture.push_back(this->computeNewPixel(i));
    }
 }
 
 //on doit utiliser un PPMGrayscalePicture
-void GrayscaleConverter::save(QVector<quint32> &vector_gray_img,
-                              quint32& width,
-                              quint32& length,
+void GrayscaleConverter::save(PGMpicture& picture,
                               QString &filename)
 {
 //comment sont stockes les images niveaux de gris ?
@@ -67,7 +65,7 @@ void GrayscaleConverter::save(QVector<quint32> &vector_gray_img,
     outfile << "P2" << endl;
 
     //Etape 3 : Write width length
-    outfile << QString::number(width) << " " << QString::number(length) << endl;
+    outfile << QString::number(picture.width) << " " << QString::number(picture.length) << endl;
 
     //Etape 4 : Write max value of pixel (255 here)
     outfile << QString::number(255) << endl;
@@ -75,7 +73,7 @@ void GrayscaleConverter::save(QVector<quint32> &vector_gray_img,
     //Etape 5 : Write the pixels, not more than 70 (?) characters per line ! (here is the difficulty, how to do this ? -> Consider the worst case : each color need 3 characters to be written )
     //D'apres l'image test, on peut ecrire plus que 70 caracteres...
     quint32 n = 0;
-    for(auto& pix : vector_gray_img)
+    for(auto& pix : picture.picture)
     {
         outfile << QString::number(pix) << " ";
         ++n;
@@ -92,7 +90,6 @@ void GrayscaleConverter::save(QVector<quint32> &vector_gray_img,
 quint32 GrayscaleConverter::computeNewPixel(pixel &pixel_in)
 {
     double pixel_result;
-
     pixel_result = (double)pixel_in.R * 0.299 + (double)pixel_in.G * 0.587+ (double)pixel_in.B * 0.114;
     return static_cast<quint32>(pixel_result);
 }

@@ -68,9 +68,15 @@ private:
                        BoxBlurMatrix[7] * picture_in[ (pixel_index_i + 1) * nb_colonnes + pixel_index_j ].B +
                        BoxBlurMatrix[8] * picture_in[ (pixel_index_i + 1) * nb_colonnes + pixel_index_j + 1].B;
 
-        pixel_result.R = static_cast<quint32>(tmp_pixel[0])%256;
-        pixel_result.G = static_cast<quint32>(tmp_pixel[1])%256;
-        pixel_result.B = static_cast<quint32>(tmp_pixel[2])%256;
+        pixel_result.R = static_cast<quint32>(tmp_pixel[0]);
+        pixel_result.G = static_cast<quint32>(tmp_pixel[1]);
+        pixel_result.B = static_cast<quint32>(tmp_pixel[2]);
+        if(pixel_result.B > 255)
+            pixel_result.B = 255;
+        if(pixel_result.R > 255)
+            pixel_result.R = 255;
+        if(pixel_result.G > 255)
+            pixel_result.G = 255;
         return pixel_result;
     }
 
