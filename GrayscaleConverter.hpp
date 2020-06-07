@@ -34,7 +34,7 @@ private:
 
 
 void GrayscaleConverter::apply(PPMpicture& picture_in,
-                               PGMpicture& picture_out) //il faut rmeplacer le type par PGMpicture
+                               PGMpicture& picture_out)
 {
    picture_out.width = picture_in.width;
    picture_out.length = picture_in.length;

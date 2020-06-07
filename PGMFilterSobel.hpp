@@ -27,9 +27,9 @@ private:
                                ,-2 ,0 ,2
                                ,-1, 0, 1};
 
-    QVector<qint32> Filtre_y = {-1, -2, 1
+    QVector<qint32> Filtre_y = {-1, -2, -1
                                , 0,  0, 0
-                               , 1,  2, 2};
+                               , 1,  2, 1};
     quint32 computeNewPixel(QVector<qint32>&  Filtre_i,
                             QVector<qint32>&  Filtre_j,
                             QVector<quint32>&   picture_in,

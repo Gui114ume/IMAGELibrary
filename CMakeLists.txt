@@ -22,6 +22,7 @@ set( MOC_HEADERS
     PPMFilterBlur.hpp
     DFTCalculator.hpp.hpp
     GrayscaleConverter.hpp
+    *.hpp
     pixeltype.h)
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)

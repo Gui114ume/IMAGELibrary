@@ -19,8 +19,8 @@ int main(int argc, char** argv)
     PGMProcessor* pgmProcessor = new PGMProcessor();
     PPMFilterSobel* filtre_sobel = new PPMFilterSobel();
     PPMFilterBlur* filtre_blur = new PPMFilterBlur();
-    PPMFilterDFT* filtre_dft = new PPMFilterDFT;
-    PGMFilterBlur* blurPGM = new PGMFilterBlur();
+    DFTCalculator* filtre_dft = new DFTCalculator();
+    PGMFilterSobel* sobelPGM = new PGMFilterSobel();
     GrayscaleConverter* g_converter = new GrayscaleConverter();
 
     PPMpicture picture;
@@ -45,9 +45,24 @@ int main(int argc, char** argv)
     g_converter->save(image_gray, outname);
     std::cout << "gray saved" << std::endl;
 
-    pgmProcessor->applyFilter(*blurPGM ,image_gray, graycontour);
-    pgmProcessor->savePicture(outdftgray, graycontour);
-    std::cout << "grayblured saved" << std::endl;
+    //pgmProcessor->applyFilter(*sobelPGM ,image_gray, graycontour);
+
+    //pgmProcessor->savePicture(outdftgray, graycontour);
+    //std::cout << "grayblured saved" << std::endl;
+
+    PGMpictureDFT dft_img;
+    dft_img.width = 512;
+    dft_img.length = 512;
+    PGMpicture res_img;
+    res_img.width = 512;
+    res_img.length = 512;
+    //appliquer dft
+    filtre_dft->computeDFT(image_gray, dft_img);
+    //appliquer dft inverse
+    filtre_dft->computeInvDFT(dft_img, res_img);
+    //save
+    QString res_name("LenaDFTDFTinv2.pgm");
+    g_converter->save(res_img, res_name);
 
     //filtre_dft->applyDFT(pgm_picture, picture_dft);
     //ppmProcessor->applyFilter(*filtre_blur, picture, picture_out);
